@@ -36,7 +36,7 @@ if (devServerEnabled) {
 
 app.use(express.static('./public'));
 
-sgMail.setApiKey('your sendgrid api key');
+sgMail.setApiKey('your sendgrid api key'); // Enter your SendGrid API key
 const apikey = 'd932743022f5547f67376e077407421f';
 //API
 app.post('/sendemail', multipart.any(), async function (req, res) {
@@ -71,11 +71,12 @@ app.post('/sendemail', multipart.any(), async function (req, res) {
           console.log('msg', msg);
           await sgMail.send(msg).then(() => {
             console.log('ok');
-          }).catch((error) => {
-            console.log('error', error);
+            error = false;
+          }).catch((err) => {
+            console.log('error', err);
+            error = true;
           });
-
-          error = false;
+          
         }
         else {
           error = true;
